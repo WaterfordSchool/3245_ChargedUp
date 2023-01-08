@@ -56,7 +56,7 @@ public class ArmSubystem extends SubsystemBase{
         SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
     }
     
-    public void resetArmEncoder(){
+    public void resetEncoders(){
         //reset arm encoders (use in loading, low position)
         armBaseJointEnc.setIntegratedSensorPosition(0, 15);
         armStretchJointEnc.setIntegratedSensorPosition(0, 15);

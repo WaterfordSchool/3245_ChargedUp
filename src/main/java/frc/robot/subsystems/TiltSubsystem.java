@@ -37,7 +37,7 @@ public class TiltSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Tilt Encoder Position", tiltEnc.getIntegratedSensorPosition());
     }
     
-    public void resetArmEncoder(){
+    public void resetEncoder(){
         //reset arm encoders (use in loading, low position)
         tiltEnc.setIntegratedSensorPosition(0, 15);
         tiltEnc.setIntegratedSensorPosition(0, 15);

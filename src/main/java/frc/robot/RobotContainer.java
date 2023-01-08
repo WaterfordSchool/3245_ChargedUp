@@ -6,15 +6,17 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.ArmManualCommand;
-import frc.robot.commands.ElevatorManualCommand;
-import frc.robot.commands.LobterRunManualCommand;
-import frc.robot.commands.LobterStretchManualCommand;
+import frc.robot.commands.ManualArmCommand;
+import frc.robot.commands.ManualElevatorCommand;
+import frc.robot.commands.ManualLobterRunCommand;
+import frc.robot.commands.ManualLobterStretchCommand;
+import frc.robot.commands.ManualTiltCommand;
 import frc.robot.subsystems.ArmSubystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LobterRunSubsystem;
 import frc.robot.subsystems.LobterStretchSubsystem;
+import frc.robot.subsystems.TiltSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -29,6 +31,7 @@ public class RobotContainer {
   private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
   private final LobterRunSubsystem m_lobterRunSubsystem = new LobterRunSubsystem();
   private final LobterStretchSubsystem m_lobterStretchSubsystem = new LobterStretchSubsystem();
+  private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
 
   //commands
   //drive commands
@@ -37,14 +40,17 @@ public class RobotContainer {
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, driver);
 
   //arm commands
-  private final ArmManualCommand m_armManualCommand = new ArmManualCommand(m_armSubsystem, operator);
+  private final ManualArmCommand m_armManualCommand = new ManualArmCommand(m_armSubsystem, operator);
   
   //elevator commands
-  private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
+  private final ManualElevatorCommand m_elevatorManualCommand = new ManualElevatorCommand(m_elevatorSubsystem, operator);
 
   //lobter commands
-  private final LobterRunManualCommand m_lobterRunManualCommand = new LobterRunManualCommand(m_lobterRunSubsystem, operator);
-  private final LobterStretchManualCommand m_lobterStretchManualCommand = new LobterStretchManualCommand(m_lobterStretchSubsystem, operator);
+  private final ManualLobterRunCommand m_lobterRunManualCommand = new ManualLobterRunCommand(m_lobterRunSubsystem, operator);
+  private final ManualLobterStretchCommand m_lobterStretchManualCommand = new ManualLobterStretchCommand(m_lobterStretchSubsystem, operator);
+
+  //tilt commands
+  private final ManualTiltCommand m_tiltManualCommand = new ManualTiltCommand(m_tiltSubsystem, operator);
 
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
@@ -52,6 +58,7 @@ public class RobotContainer {
     m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     m_lobterRunSubsystem.setDefaultCommand(m_lobterRunManualCommand);
     m_lobterStretchSubsystem.setDefaultCommand(m_lobterStretchManualCommand);
+    m_tiltSubsystem.setDefaultCommand(m_tiltManualCommand);
     configureButtonBindings();
   }
 
