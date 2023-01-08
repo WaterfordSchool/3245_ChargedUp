@@ -4,14 +4,6 @@
 
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
 public final class Constants {
     //drive ids
         public static final int driveleft1ID = 1;
@@ -25,6 +17,28 @@ public final class Constants {
         public static final int lobterLeftMotorID = 8;
         public static final int lobterRightMotorID = 9;
     //gains, PID
+        //ramping, max/mins
+        public static final double driveRampRate = 0.3;
+        public static final double elevatorClosedRampRate = 0.6;
+        public static final double armBaseClosedRampRate = 0.4;
+        public static final double armStretchClosedRampRate = 0.4;
+        public static final double armBaseClosedMaxOutput = 0.6;
+        public static final double armStretchClosedMaxOutput = 0.6;
+        //PID
+        public static final double elevatorkF = 0.0;
+        public static final double elevatorkP = 0.15;
+        public static final double elevatorkI = 0.0;
+        public static final double elevatorkD = 0.0;
+
+        public static final double armBasekF = 0.0;
+        public static final double armBasekP = 0.15;
+        public static final double armBasekI = 0.0;
+        public static final double armBasekD = 0.0;
+
+        public static final double armStretchkF = 0.0;
+        public static final double armStretchkP = 0.15;
+        public static final double armStretchkI = 0.0;
+        public static final double armStretchkD = 0.0;
 
     //driver controls
         //drive axes: 0, 2, 3

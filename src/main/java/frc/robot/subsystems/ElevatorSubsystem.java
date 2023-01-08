@@ -6,6 +6,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -28,13 +29,23 @@ public class ElevatorSubsystem extends SubsystemBase{
         elevatorEnc = elevator.getEncoder();
         elevatorPID = elevator.getPIDController();
         //config PID
+        elevatorPID.setFF(Constants.elevatorkF);
+        elevatorPID.setP(Constants.elevatorkP);
+        elevatorPID.setI(Constants.elevatorkI);
+        elevatorPID.setD(Constants.elevatorkD);
         
         //set max voltage motor limit
-        elevator.setClosedLoopRampRate(0.2);
+        elevator.setClosedLoopRampRate(Constants.elevatorClosedRampRate);
+        elevatorPID.setOutputRange(-0.5, 0.5);
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+        SmartDashboard.putNumber("Elevator Encoder Position", elevatorEnc.getPosition());
+        SmartDashboard.putNumber("Elevator Encoder Position Conversion Factor", elevatorEnc.getPositionConversionFactor());
+        SmartDashboard.putNumber("Elevator Velocity", elevatorEnc.getVelocity());
+        SmartDashboard.putNumber("Elevator Encoder Counts per Rev", elevatorEnc.getCountsPerRevolution());
+    }
     
     public void resetElevatorEncoder(){
         //set encoder value to 0

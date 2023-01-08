@@ -12,10 +12,10 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
-    private WPI_TalonSRX left1;
-    private WPI_TalonSRX left2;
-    private WPI_TalonSRX right1;
-    private WPI_TalonSRX right2;
+    private CANSparkMax left1;
+    private CANSparkMax left2;
+    private CANSparkMax right1;
+    private CANSparkMax right2;
 
     private MotorControllerGroup leftDrive; 
     private MotorControllerGroup rightDrive; 
@@ -24,10 +24,11 @@ public class DriveTrain extends SubsystemBase {
     
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
-    left1 = new WPI_TalonSRX(Constants.driveleft1ID);
-    left2 = new WPI_TalonSRX(Constants.driveleft2ID);
-    right1 = new WPI_TalonSRX(Constants.driveright1ID);
-    right2 = new WPI_TalonSRX(Constants.driveright2ID);
+    //4 drive neos
+    left1 = new CANSparkMax(Constants.driveleft1ID, MotorType.kBrushless);
+    left2 = new CANSparkMax(Constants.driveleft2ID, MotorType.kBrushless);
+    right1 = new CANSparkMax(Constants.driveright1ID, MotorType.kBrushless);
+    right2 = new CANSparkMax(Constants.driveright2ID, MotorType.kBrushless);
 
 
     leftDrive = new MotorControllerGroup(left1, left2);
@@ -37,10 +38,10 @@ public class DriveTrain extends SubsystemBase {
     
      //ramping
      final double t = 0.3;
-     left1.configOpenloopRamp(t);
-     left2.configOpenloopRamp(t);
-     right1.configOpenloopRamp(t);
-     right2.configOpenloopRamp(t);
+     left1.setOpenLoopRampRate(t);
+     left2.setOpenLoopRampRate(t);
+     right1.setOpenLoopRampRate(t);
+     right2.setOpenLoopRampRate(t);
  
   }
 

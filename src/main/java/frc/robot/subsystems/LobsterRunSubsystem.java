@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class ArmSubystem extends SubsystemBase{
+public class LobsterRunSubsystem extends SubsystemBase{
     public final TalonFX armMotorBaseJoint;
     public final TalonFX armMotorStretchJoint;
     public final TalonFXSensorCollection armBaseJointEnc;
@@ -23,7 +23,7 @@ public class ArmSubystem extends SubsystemBase{
     //motors
 
     //init stuff
-    public ArmSubystem(){
+    public LobsterRunSubsystem(){
         //arm motors/encoders
         armMotorBaseJoint = new TalonFX(Constants.armMotorBaseJointID);
         armMotorStretchJoint = new TalonFX(Constants.armMotorStretchJointID);
