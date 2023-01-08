@@ -36,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         
         //set max voltage motor limit
         elevator.setClosedLoopRampRate(Constants.elevatorClosedRampRate);
-        elevatorPID.setOutputRange(-0.5, 0.5);
+        elevatorPID.setOutputRange(-Constants.elevatorClosedMaxVal, Constants.elevatorClosedMaxVal);
     }
 
     @Override
@@ -49,6 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     
     public void resetElevatorEncoder(){
         //set encoder value to 0
+        elevatorEnc.setPosition(0);
     }
 
     public void moveDownElevator(){
@@ -59,7 +60,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         //set elevator to up encoder position
     }
 
-    public void moveElevatorManual(XboxController controller){
+    public void moveManual(XboxController controller){
         //move elevator manually
         elevator.set(0.4*controller.getRawAxis(Constants.manualElevatorAxis));
     }

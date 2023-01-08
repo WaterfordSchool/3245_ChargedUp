@@ -22,7 +22,7 @@ public class ArmManualCommand extends CommandBase{
         
     @Override
     public void execute() {
-        m_armSubsystem.moveArmManually(m_controller);
+        m_armSubsystem.moveManual(m_controller);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ArmManualCommand extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return true;
+        return false;
     }
 
 }

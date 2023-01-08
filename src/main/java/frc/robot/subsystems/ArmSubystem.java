@@ -78,9 +78,9 @@ public class ArmSubystem extends SubsystemBase{
         //set arm to 0 encoder positions
     }
 
-    public void moveArmManually(XboxController manualArmController){
+    public void moveManual(XboxController controller){
         //move arm manually
-        armMotorBaseJoint.set(ControlMode.PercentOutput, 0.4*manualArmController.getRawAxis(Constants.manualArmBaseJointAxis));
-        armMotorStretchJoint.set(ControlMode.PercentOutput, 0.4*manualArmController.getRawAxis(Constants.manualArmStretchJointAxis));
+        armMotorBaseJoint.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualArmBaseJointAxis));
+        armMotorStretchJoint.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualArmStretchJointAxis));
     }
 }

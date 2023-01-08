@@ -1,8 +1,14 @@
 package frc.robot.subsystems;
 
+import java.util.concurrent.CancellationException;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,10 +16,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LobterStretchSubsystem extends SubsystemBase{
-    public final TalonFX armMotorBaseJoint;
-    public final TalonFX armMotorStretchJoint;
-    public final TalonFXSensorCollection armBaseJointEnc;
-    public final TalonFXSensorCollection armStretchJointEnc;
+    public final CANSparkMax lobterStretchLeft;
+    public final CANSparkMax lobterStretchRight;
+    public final SparkMaxPIDController stretchLeftPID;
+    public final SparkMaxPIDController stretchRightPID;
+    private final RelativeEncoder stretchLeftEnc;
+    private final RelativeEncoder stretchRightEnc;
     /*TODO
     track encoder values in time based, tune appropriately
     tune PID
@@ -25,63 +33,61 @@ public class LobterStretchSubsystem extends SubsystemBase{
     //init stuff
     public LobterStretchSubsystem(){
         //arm motors/encoders
-        armMotorBaseJoint = new TalonFX(Constants.armMotorBaseJointID);
-        armMotorStretchJoint = new TalonFX(Constants.armMotorStretchJointID);
-        armBaseJointEnc = new TalonFXSensorCollection(armMotorBaseJoint);
-        armStretchJointEnc = new TalonFXSensorCollection(armMotorStretchJoint);
+        lobterStretchLeft = new CANSparkMax(Constants.lobterStretchMotorLeftID , MotorType.kBrushless);
+        lobterStretchRight = new CANSparkMax(Constants.lobterStretchMotorRightID, MotorType.kBrushless);
+        stretchLeftPID = lobterStretchLeft.getPIDController();
+        stretchRightPID = lobterStretchRight.getPIDController();
+        stretchLeftEnc = lobterStretchLeft.getEncoder();
+        stretchRightEnc = lobterStretchRight.getEncoder();
 
         //config PID
-        armMotorBaseJoint.config_kF(0, Constants.armBasekF);
-        armMotorBaseJoint.config_kP(0, Constants.armBasekP);
-        armMotorBaseJoint.config_kI(0, Constants.armBasekI);
-        armMotorBaseJoint.config_kD(0, Constants.armBasekD);
+        stretchLeftPID.setFF(Constants.lobterStretchLeftkF);
+        stretchLeftPID.setP(Constants.lobterStretchLeftkP);
+        stretchLeftPID.setI(Constants.lobterStretchLeftkI);
+        stretchLeftPID.setD(Constants.lobterStretchLeftkD);
 
-        armMotorStretchJoint.config_kF(0, Constants.armStretchkF);
-        armMotorStretchJoint.config_kP(0, Constants.armStretchkP);
-        armMotorStretchJoint.config_kI(0, Constants.armStretchkI);
-        armMotorStretchJoint.config_kD(0, Constants.armStretchkD);
+        stretchRightPID.setFF(Constants.lobterStretchRightkF);
+        stretchRightPID.setP(Constants.lobterStretchRightkP);
+        stretchRightPID.setI(Constants.lobterStretchRightkI);
+        stretchRightPID.setD(Constants.lobterStretchRightkD);
 
         //config max output
-        armMotorBaseJoint.configClosedLoopPeakOutput(0, Constants.armBaseClosedMaxOutput);
-        armMotorBaseJoint.configClosedloopRamp(Constants.armBaseClosedRampRate);
-        armMotorStretchJoint.configClosedLoopPeakOutput(0, Constants.armStretchClosedMaxOutput);
-        armMotorStretchJoint.configClosedloopRamp(Constants.armStretchClosedRampRate);
+        lobterStretchLeft.setClosedLoopRampRate(Constants.lobterStretchClosedRampRate);
+        stretchLeftPID.setOutputRange(-Constants.lobterStretchMaxVal, Constants.lobterStretchMaxVal);
+        lobterStretchRight.setClosedLoopRampRate(Constants.lobterStretchClosedRampRate);
+        stretchRightPID.setOutputRange(-Constants.lobterStretchMaxVal, Constants.lobterStretchMaxVal);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Base Arm Joint Encoder Absolute Position", armBaseJointEnc.getIntegratedSensorAbsolutePosition());
-        SmartDashboard.putNumber("Stretch Arm Joint Encoder Absolute Position", armStretchJointEnc.getIntegratedSensorAbsolutePosition());
-        SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
-        SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
-        SmartDashboard.putNumber(getName(), armBaseJointEnc.getIntegratedSensorVelocity());
+        SmartDashboard.putNumber("Elevator Encoder Position", stretchLeftEnc.getPosition());
+        SmartDashboard.putNumber("Elevator Encoder Position Conversion Factor", stretchLeftEnc.getPositionConversionFactor());
+        SmartDashboard.putNumber("Elevator Velocity", stretchLeftEnc.getVelocity());
+        SmartDashboard.putNumber("Elevator Encoder Counts per Rev", stretchLeftEnc.getCountsPerRevolution());
+
+        SmartDashboard.putNumber("Elevator Encoder Position", stretchRightEnc.getPosition());
+        SmartDashboard.putNumber("Elevator Encoder Position Conversion Factor", stretchRightEnc.getPositionConversionFactor());
+        SmartDashboard.putNumber("Elevator Velocity", stretchRightEnc.getVelocity());
+        SmartDashboard.putNumber("Elevator Encoder Counts per Rev", stretchRightEnc.getCountsPerRevolution());
     }
     
     public void resetArmEncoder(){
         //reset arm encoders (use in loading, low position)
-        armBaseJointEnc.setIntegratedSensorPosition(0, 15);
-        armStretchJointEnc.setIntegratedSensorPosition(0, 15);
+        stretchLeftEnc.setPosition(0);
+        stretchRightEnc.setPosition(0);
     }
 
-    public void moveLow(){
+    public void setCone(){
         //set arm to low encoder positions
     }
 
-    public void moveMid(){
+    public void setCube(){
         //setarm to mid encoder positions
     }
 
-    public void moveHigh(){
-        //set arm to high encoder positions
-    }
-
-    public void moveBack(){
-        //set arm to 0 encoder positions
-    }
-
-    public void moveArmManually(XboxController manualArmController){
+    public void moveManual(XboxController controller){
         //move arm manually
-        armMotorBaseJoint.set(ControlMode.PercentOutput, 0.4*manualArmController.getRawAxis(Constants.manualArmBaseJointAxis));
-        armMotorStretchJoint.set(ControlMode.PercentOutput, 0.4*manualArmController.getRawAxis(Constants.manualArmStretchJointAxis));
+        lobterStretchLeft.set(Constants.lobterStretchMaxVal*controller.getRawAxis(Constants.manualElevatorAxis));
+        lobterStretchRight.set(Constants.lobterStretchMaxVal*controller.getRawAxis(Constants.manualElevatorAxis));
     }
 }

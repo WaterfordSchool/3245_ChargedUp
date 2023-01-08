@@ -21,7 +21,7 @@ public class ElevatorManualCommand extends CommandBase{
         
     @Override
     public void execute() {
-        m_elevatorSubsystem.moveElevatorManual(m_controller);
+        m_elevatorSubsystem.moveManual(m_controller);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ElevatorManualCommand extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return true;
+        return false;
     }
 
 }

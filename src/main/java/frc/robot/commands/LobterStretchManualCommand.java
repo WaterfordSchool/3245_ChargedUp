@@ -3,16 +3,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LobterRunSubsystem;
+import frc.robot.subsystems.LobterStretchSubsystem;
 
-public class LobterRunManualCommand extends CommandBase{
+public class LobterStretchManualCommand extends CommandBase{
 
-    private final LobterRunSubsystem m_lobterRunSubsystem;
+    private final LobterStretchSubsystem m_lobterStretchSubsystem;
     private XboxController m_controller;
     
-    public LobterRunManualCommand(LobterRunSubsystem lobterRunSubsystem, XboxController controller){
-        m_lobterRunSubsystem = lobterRunSubsystem;
+    public LobterStretchManualCommand(LobterStretchSubsystem lobterStretchSubsystem, XboxController controller){
+        m_lobterStretchSubsystem = lobterStretchSubsystem;
         m_controller = controller;
-        addRequirements(m_lobterRunSubsystem);
+        addRequirements(m_lobterStretchSubsystem);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class LobterRunManualCommand extends CommandBase{
         
     @Override
     public void execute() {
-        m_lobterRunSubsystem.manualSpin(m_controller);
+        m_lobterStretchSubsystem.moveManual(m_controller);
     }
 
     @Override

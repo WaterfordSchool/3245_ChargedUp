@@ -9,10 +9,12 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmManualCommand;
 import frc.robot.commands.ElevatorManualCommand;
 import frc.robot.commands.LobterRunManualCommand;
+import frc.robot.commands.LobterStretchManualCommand;
 import frc.robot.subsystems.ArmSubystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LobterRunSubsystem;
+import frc.robot.subsystems.LobterStretchSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -26,6 +28,7 @@ public class RobotContainer {
   private final ArmSubystem m_armSubsystem = new ArmSubystem();
   private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
   private final LobterRunSubsystem m_lobterRunSubsystem = new LobterRunSubsystem();
+  private final LobterStretchSubsystem m_lobterStretchSubsystem = new LobterStretchSubsystem();
 
   //commands
   //drive commands
@@ -41,12 +44,14 @@ public class RobotContainer {
 
   //lobter commands
   private final LobterRunManualCommand m_lobterRunManualCommand = new LobterRunManualCommand(m_lobterRunSubsystem, operator);
+  private final LobterStretchManualCommand m_lobterStretchManualCommand = new LobterStretchManualCommand(m_lobterStretchSubsystem, operator);
 
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
     m_armSubsystem.setDefaultCommand(m_armManualCommand);
     m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     m_lobterRunSubsystem.setDefaultCommand(m_lobterRunManualCommand);
+    m_lobterStretchSubsystem.setDefaultCommand(m_lobterStretchManualCommand);
     configureButtonBindings();
   }
 

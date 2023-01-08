@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,16 +10,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LobterRunSubsystem extends SubsystemBase{
-    public final TalonFX spinLeft;
-    public final TalonFX spinRight;
-    public final TalonFXSensorCollection spinLeftEnc;
-    public final TalonFXSensorCollection spinRightEnc;
+    public final TalonSRX spinLeft;
+    public final TalonSRX spinRight;
+    /*public final TalonFXSensorCollection spinLeftEnc;
+    public final TalonFXSensorCollection spinRightEnc;*/
     
       public LobterRunSubsystem() {
-        spinLeft = new TalonFX(Constants.lobterRunLeftMotorID);
-        spinRight = new TalonFX(Constants.lobterRunRightMotorID);
-        spinLeftEnc = new TalonFXSensorCollection(spinLeft);
-        spinRightEnc = new TalonFXSensorCollection(spinRight);
+        spinLeft = new TalonSRX(Constants.lobterRunLeftMotorID);
+        spinRight = new TalonSRX(Constants.lobterRunRightMotorID);
+        spinLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        spinRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         
         spinLeft.config_kF(0, Constants.lobterRunkF);
         spinLeft.config_kP(0, Constants.lobterRunkP);
@@ -42,24 +42,22 @@ public class LobterRunSubsystem extends SubsystemBase{
       
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Lobter Run Left Encoder Absolute Position", spinLeftEnc.getIntegratedSensorAbsolutePosition());
-        SmartDashboard.putNumber("Lobter Run Right Encoder Absolute Position", spinRightEnc.getIntegratedSensorAbsolutePosition());
-        SmartDashboard.putNumber("Lobter Run Left Encoder Position", spinLeftEnc.getIntegratedSensorPosition());
-        SmartDashboard.putNumber("Lobter Run Right Encoder Position", spinRightEnc.getIntegratedSensorPosition());
+        SmartDashboard.putNumber("Lobter Run Left Encoder Position", spinLeft.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Lobter Run Right Encoder Position", spinRight.getSelectedSensorPosition());
     }
     public void spinLeft(){
-        spinLeft.set(ControlMode.Position, spinLeftEnc.getIntegratedSensorPosition()-200);
+        spinLeft.set(ControlMode.Position, spinLeft.getSelectedSensorPosition()-200);
         //spinRight.set(ControlMode.PercentOutput, 0);
     }
 
     public void spinRight(){
-        spinLeft.set(ControlMode.Position, spinLeftEnc.getIntegratedSensorPosition()+200);
+        spinLeft.set(ControlMode.Position, spinRight.getSelectedSensorPosition()+200);
         //spinLeft.set(ControlMode.PercentOutput, 0);
     }
 
     public void spit(){
-        spinLeft.set(ControlMode.Position, spinLeftEnc.getIntegratedSensorPosition()+200);
-        spinLeft.set(ControlMode.Position, spinLeftEnc.getIntegratedSensorPosition()-200);
+        spinLeft.set(ControlMode.Position, spinLeft.getSelectedSensorPosition()+200);
+        spinLeft.set(ControlMode.Position, spinRight.getSelectedSensorPosition()-200);
     }
     
     public void manualSpin(XboxController controller){
