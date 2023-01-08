@@ -1,17 +1,20 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubystem extends SubsystemBase{
     public final TalonFX armMotorBaseJoint;
     public final TalonFX armMotorStretchJoint;
+    public final TalonFXSensorCollection armBaseJointEnc;
+    public final TalonFXSensorCollection armStretchJointEnc;
     /*TODO
-    attach(?) encoder
     track encoder values in time based, tune appropriately
     tune PID
     think about motion magic
@@ -21,17 +24,26 @@ public class ArmSubystem extends SubsystemBase{
 
     //init stuff
     public ArmSubystem(){
-        //arm motors
+        //arm motors/encoders
         armMotorBaseJoint = new TalonFX(Constants.armMotorBaseJointID);
         armMotorStretchJoint = new TalonFX(Constants.armMotorStretchJointID);
-        //config encoder
+        armBaseJointEnc = new TalonFXSensorCollection(armMotorBaseJoint);
+        armStretchJointEnc = new TalonFXSensorCollection(armMotorStretchJoint);
         //config PID
-        //config sensor phase
-        //set max voltage motor limit
+        //config max output
+        armMotorBaseJoint.configClosedLoopPeakOutput(0, 0.4);
+        armMotorStretchJoint.configClosedLoopPeakOutput(0, 0.4);
+        armMotorBaseJoint.configOpenloopRamp(.4);
+        armMotorStretchJoint.configOpenloopRamp(0.4);
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+        SmartDashboard.putNumber("Base Arm Joint Encoder Absolute Position", armBaseJointEnc.getIntegratedSensorAbsolutePosition());
+        SmartDashboard.putNumber("Stretch Arm Joint Encoder Absolute Position", armStretchJointEnc.getIntegratedSensorAbsolutePosition());
+        SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
+        SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
+    }
     
     public void resetArmEncoder(){
         //reset arm encoders (use in loading, low position)

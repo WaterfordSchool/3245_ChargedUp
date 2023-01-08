@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmManualCommand;
+import frc.robot.commands.ElevatorManualCommand;
 import frc.robot.commands.SetArmCommand;
 import frc.robot.subsystems.ArmSubystem;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -22,6 +24,7 @@ public class RobotContainer {
   //subsystems
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final ArmSubystem m_armSubsystem = new ArmSubystem();
+  private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
 
   //commands
   //drive commands
@@ -31,14 +34,14 @@ public class RobotContainer {
 
   //arm commands
   private final ArmManualCommand m_armManualCommand = new ArmManualCommand(m_armSubsystem, operator);
-  private final SetArmCommand m_setArmLow = new SetArmCommand(m_armSubsystem, "low");
-  private final SetArmCommand m_setArmMid = new SetArmCommand(m_armSubsystem, "mid");
-  private final SetArmCommand m_setArmHigh = new SetArmCommand(m_armSubsystem, "high");
-
+  
+  //elevator commands
+  private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
 
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
     m_armSubsystem.setDefaultCommand(m_armManualCommand);
+    m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     configureButtonBindings();
   }
 

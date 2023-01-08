@@ -3,26 +3,26 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ArmManualCommand extends CommandBase{
+public class ElevatorManualCommand extends CommandBase{
 
-    private final ArmSubystem m_armSubsystem;
+    private final ElevatorSubsystem m_elevatorSubsystem;
     private XboxController m_controller;
     
-    public ArmManualCommand(ArmSubystem armSubystem, XboxController controller){
-        m_armSubsystem = armSubystem;
+    public ElevatorManualCommand(ElevatorSubsystem elevatorSubsystem, XboxController controller){
+        m_elevatorSubsystem = elevatorSubsystem;
         m_controller = controller;
-        addRequirements(m_armSubsystem);
+        addRequirements(m_elevatorSubsystem);
     }
 
     @Override
     public void initialize() {
-        m_armSubsystem.resetArmEncoder();
     }
         
     @Override
     public void execute() {
-        m_armSubsystem.moveArmManually(m_controller);
+        m_elevatorSubsystem.moveElevatorManual(m_controller);
     }
 
     @Override
