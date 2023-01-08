@@ -19,14 +19,20 @@ public final class Constants {
         public static final int driveright1ID = 3;
         public static final int driveright2ID = 4;
     //motor ids
-
+        public static final int armMotorBaseJointID = 5;
+        public static final int armMotorStretchJointID = 6;
+        public static final int elevatorMotorID = 7;
+        public static final int lobterLeftMotorID = 8;
+        public static final int lobterRightMotorID = 9;
     //gains, PID
 
     //driver controls
+        //drive axes: 0, 2, 3
         public static final int fastButton = 1;
         public static final int slowButton = 2;
     //operator controls
-
+        public static final int manualArmBaseJointAxis = 1;
+        public static final int manualArmStretchJointAxis = 2;
+        public static final int manualElevatorAxis = 3; 
     //sensors
-
 }
