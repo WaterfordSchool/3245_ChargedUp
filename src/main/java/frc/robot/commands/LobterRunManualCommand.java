@@ -2,17 +2,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.LobterRunSubsystem;
 
-public class ElevatorManualCommand extends CommandBase{
+public class LobterRunManualCommand extends CommandBase{
 
-    private final ElevatorSubsystem m_elevatorSubsystem;
+    private final LobterRunSubsystem m_lobterSubsystem;
     private XboxController m_controller;
     
-    public ElevatorManualCommand(ElevatorSubsystem elevatorSubsystem, XboxController controller){
-        m_elevatorSubsystem = elevatorSubsystem;
+    public LobterRunManualCommand(LobterRunSubsystem lobterSubsystem, XboxController controller){
+        m_lobterSubsystem = lobterSubsystem;
         m_controller = controller;
-        addRequirements(m_elevatorSubsystem);
+        addRequirements(m_lobterSubsystem);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ElevatorManualCommand extends CommandBase{
         
     @Override
     public void execute() {
-        m_elevatorSubsystem.moveElevatorManual(m_controller);
+        m_lobterSubsystem.manualSpin(m_controller);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ElevatorManualCommand extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return true;
+        return false;
     }
 
 }

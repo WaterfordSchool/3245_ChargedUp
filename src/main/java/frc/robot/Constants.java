@@ -14,16 +14,22 @@ public final class Constants {
         public static final int armMotorBaseJointID = 5;
         public static final int armMotorStretchJointID = 6;
         public static final int elevatorMotorID = 7;
-        public static final int lobterLeftMotorID = 8;
-        public static final int lobterRightMotorID = 9;
+        public static final int lobterRunLeftMotorID = 8;
+        public static final int lobterRunRightMotorID = 9;
+        public static final int lobterStretchMotorID = 10;
     //gains, PID
         //ramping, max/mins
         public static final double driveRampRate = 0.3;
+
         public static final double elevatorClosedRampRate = 0.6;
+
         public static final double armBaseClosedRampRate = 0.4;
         public static final double armStretchClosedRampRate = 0.4;
         public static final double armBaseClosedMaxOutput = 0.6;
         public static final double armStretchClosedMaxOutput = 0.6;
+
+        public static final double lobterDriveClosedrampRate = 0.4;
+        public static final double lobterDriveClosedMaxOutput = 0.25;
         //PID
         public static final double elevatorkF = 0.0;
         public static final double elevatorkP = 0.15;
@@ -40,13 +46,24 @@ public final class Constants {
         public static final double armStretchkI = 0.0;
         public static final double armStretchkD = 0.0;
 
+        public static final double lobterRunkF = 0.0;
+        public static final double lobterRunkP = 0.15;
+        public static final double lobterRunkI = 0.0;
+        public static final double lobterRunkD = 0.0;
+
     //driver controls
         //drive axes: 0, 2, 3
         public static final int fastButton = 1;
         public static final int slowButton = 2;
     //operator controls
+        //axes
         public static final int manualArmBaseJointAxis = 1;
         public static final int manualArmStretchJointAxis = 2;
         public static final int manualElevatorAxis = 3; 
+        //buttons
+        public static final int manualLobterLeftSpinButton = 1;
+        public static final int manualLobterRightSpinButton = 2;
+        public static final int manualLobterSpitButton = 3;
+        public static final int allScoreButton = 4;
     //sensors
 }

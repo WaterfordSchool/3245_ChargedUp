@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class ArmSubystem extends SubsystemBase{
+public class LobterStretchSubsystem extends SubsystemBase{
     public final TalonFX armMotorBaseJoint;
     public final TalonFX armMotorStretchJoint;
     public final TalonFXSensorCollection armBaseJointEnc;
@@ -23,7 +23,7 @@ public class ArmSubystem extends SubsystemBase{
     //motors
 
     //init stuff
-    public ArmSubystem(){
+    public LobterStretchSubsystem(){
         //arm motors/encoders
         armMotorBaseJoint = new TalonFX(Constants.armMotorBaseJointID);
         armMotorStretchJoint = new TalonFX(Constants.armMotorStretchJointID);
@@ -54,6 +54,7 @@ public class ArmSubystem extends SubsystemBase{
         SmartDashboard.putNumber("Stretch Arm Joint Encoder Absolute Position", armStretchJointEnc.getIntegratedSensorAbsolutePosition());
         SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
         SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
+        SmartDashboard.putNumber(getName(), armBaseJointEnc.getIntegratedSensorVelocity());
     }
     
     public void resetArmEncoder(){

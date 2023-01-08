@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmManualCommand;
 import frc.robot.commands.ElevatorManualCommand;
+import frc.robot.commands.LobterRunManualCommand;
 import frc.robot.subsystems.ArmSubystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.LobterRunSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -23,6 +25,7 @@ public class RobotContainer {
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final ArmSubystem m_armSubsystem = new ArmSubystem();
   private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
+  private final LobterRunSubsystem m_lobterRunSubsystem = new LobterRunSubsystem();
 
   //commands
   //drive commands
@@ -36,10 +39,14 @@ public class RobotContainer {
   //elevator commands
   private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
 
+  //lobter commands
+  private final LobterRunManualCommand m_lobterRunManualCommand = new LobterRunManualCommand(m_lobterRunSubsystem, operator);
+
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
     m_armSubsystem.setDefaultCommand(m_armManualCommand);
     m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
+    m_lobterRunSubsystem.setDefaultCommand(m_lobterRunManualCommand);
     configureButtonBindings();
   }
 
