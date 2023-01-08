@@ -13,11 +13,15 @@ public final class Constants {
     //motor ids
         public static final int armMotorBaseJointID = 5;
         public static final int armMotorStretchJointID = 6;
+
         public static final int elevatorMotorID = 7;
+
         public static final int lobterRunLeftMotorID = 8;
         public static final int lobterRunRightMotorID = 9;
         public static final int lobterStretchMotorLeftID = 10;
         public static final int lobterStretchMotorRightID = 11;
+
+        public static final int tiltMotorID = 12;
     //gains, PID
         //ramping, max/mins
         public static final double driveRampRate = 0.3;
@@ -35,6 +39,9 @@ public final class Constants {
 
         public static final double lobterDriveClosedrampRate = 0.4;
         public static final double lobterDriveClosedMaxOutput = 0.25;
+
+        public static final double tiltClosedRampRate = 0.4;
+        public static final double tiltMaxOutput = 0.5;
         //PID
         public static final double elevatorkF = 0.0;
         public static final double elevatorkP = 0.15;
@@ -50,6 +57,11 @@ public final class Constants {
         public static final double armStretchkP = 0.15;
         public static final double armStretchkI = 0.0;
         public static final double armStretchkD = 0.0;
+
+        public static final double tiltkF = 0.0;
+        public static final double tiltkP = 0.15;
+        public static final double tiltkI = 0.0;
+        public static final double tiltkD = 0.0;
 
         public static final double lobterRunkF = 0.0;
         public static final double lobterRunkP = 0.15;
@@ -79,6 +91,8 @@ public final class Constants {
 
         public static final int manualLobterStretchLeftAxis = 4;
         public static final int manualLobterStretchRightAxis = 5;
+
+        public static final int manualTiltAxis = 6;
         //buttons
         public static final int manualLobterLeftSpinButton = 1;
         public static final int manualLobterRightSpinButton = 2;
