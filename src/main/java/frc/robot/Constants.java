@@ -31,6 +31,7 @@ public final class Constants {
 
         public static final double lobterStretchClosedRampRate = 0.4;
         public static final double lobterStretchMaxVal = 0.5;
+        public static final double lobterContactCurrentValue = 0;
 
         public static final double armBaseClosedRampRate = 0.4;
         public static final double armStretchClosedRampRate = 0.4;
@@ -98,5 +99,6 @@ public final class Constants {
         public static final int manualLobterRightSpinButton = 2;
         public static final int manualLobterSpitButton = 3;
         public static final int allScoreButton = 4;
+        public static final int currentSlideButton = 5;
     //sensors
 }

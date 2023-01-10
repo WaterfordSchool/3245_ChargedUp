@@ -55,15 +55,18 @@ public class LobterStretchSubsystem extends SubsystemBase{
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator Encoder Position", stretchLeftEnc.getPosition());
-        SmartDashboard.putNumber("Elevator Encoder Position Conversion Factor", stretchLeftEnc.getPositionConversionFactor());
-        SmartDashboard.putNumber("Elevator Velocity", stretchLeftEnc.getVelocity());
-        SmartDashboard.putNumber("Elevator Encoder Counts per Rev", stretchLeftEnc.getCountsPerRevolution());
+        SmartDashboard.putNumber("Stretch Left Encoder Position", stretchLeftEnc.getPosition());
+        SmartDashboard.putNumber("Stretch Left Encoder Position Conversion Factor", stretchLeftEnc.getPositionConversionFactor());
+        SmartDashboard.putNumber("Stretch Left Velocity", stretchLeftEnc.getVelocity());
+        SmartDashboard.putNumber("Stretch Left Encoder Counts per Rev", stretchLeftEnc.getCountsPerRevolution());
 
-        SmartDashboard.putNumber("Elevator Encoder Position", stretchRightEnc.getPosition());
-        SmartDashboard.putNumber("Elevator Encoder Position Conversion Factor", stretchRightEnc.getPositionConversionFactor());
-        SmartDashboard.putNumber("Elevator Velocity", stretchRightEnc.getVelocity());
-        SmartDashboard.putNumber("Elevator Encoder Counts per Rev", stretchRightEnc.getCountsPerRevolution());
+        SmartDashboard.putNumber("Stretch Right Encoder Position", stretchRightEnc.getPosition());
+        SmartDashboard.putNumber("Stretch Right Encoder Position Conversion Factor", stretchRightEnc.getPositionConversionFactor());
+        SmartDashboard.putNumber("Stretch Right Velocity", stretchRightEnc.getVelocity());
+        SmartDashboard.putNumber("Stretch Right Encoder Counts per Rev", stretchRightEnc.getCountsPerRevolution());
+
+        SmartDashboard.putNumber("Stretch Left Current", lobterStretchLeft.getOutputCurrent());
+        SmartDashboard.putNumber("Stretch Right Current", lobterStretchRight.getOutputCurrent());
     }
     
     public void resetArmEncoder(){
@@ -82,7 +85,23 @@ public class LobterStretchSubsystem extends SubsystemBase{
 
     public void moveManual(XboxController controller){
         //move arm manually
-        lobterStretchLeft.set(Constants.lobterStretchMaxVal*controller.getRawAxis(Constants.manualElevatorAxis));
+        lobterStretchLeft.set(-Constants.lobterStretchMaxVal*controller.getRawAxis(Constants.manualElevatorAxis));
         lobterStretchRight.set(Constants.lobterStretchMaxVal*controller.getRawAxis(Constants.manualElevatorAxis));
+    }
+
+    public void currentOutputMode(){
+        //1. track current of each motor
+        //2. set threshhold
+        //3. probably put this in time based
+        if(lobterStretchLeft.getOutputCurrent()>Constants.lobterContactCurrentValue){
+            lobterStretchLeft.set(0);
+        }
+        if(lobterStretchRight.getOutputCurrent()>Constants.lobterContactCurrentValue){ 
+            lobterStretchRight.set(0);
+        }
+        if(lobterStretchRight.getOutputCurrent()<Constants.lobterContactCurrentValue && lobterStretchLeft.getOutputCurrent()<Constants.lobterContactCurrentValue){ 
+            lobterStretchLeft.set(-0.2);
+            lobterStretchRight.set(0.2);
+        }
     }
 }
