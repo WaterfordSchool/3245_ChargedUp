@@ -55,6 +55,16 @@ public class DriveTrain extends SubsystemBase {
     dT.arcadeDrive(driveController.getRawAxis(0) * kSpeed, -driveController.getRawAxis(2) * kSpeed);
   }
 }
+
+  public void driveSlowAuto(){
+    dT.arcadeDrive(.3, 0);
+  }
+
+  public void driveMidAuto(){
+    dT.arcadeDrive(.5, 0);
+
+  }
+  
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation

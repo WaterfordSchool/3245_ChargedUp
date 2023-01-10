@@ -1,8 +1,11 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BalanceSubsystem extends SubsystemBase{
+    ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
     //motors
 
     //init stuff
@@ -10,11 +13,16 @@ public class BalanceSubsystem extends SubsystemBase{
 
     @Override
     public void periodic() {
+
         //make motor?
         //config gyro
         //config PID
         //config sensor phase
         //set max voltage drive motor limit
+    }
+    
+    public void getGyro(){
+        gyro.getAngle();
     }
     //not entirely sure yet
 }

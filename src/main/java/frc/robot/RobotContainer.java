@@ -5,7 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.AutoCommandBalance;
+import frc.robot.commands.AutoCommandNoBalance;
 import frc.robot.commands.ManualArmCommand;
 import frc.robot.commands.ManualElevatorCommand;
 import frc.robot.commands.ManualLobterRunCommand;
@@ -22,6 +25,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
 
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
   XboxController driver = new XboxController(0);
   XboxController operator = new XboxController(1);
 
@@ -34,6 +39,10 @@ public class RobotContainer {
   private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
 
   //commands
+  //auto command
+  private final AutoCommandBalance m_autonomousBalanceCommand = new AutoCommandBalance(m_driveTrain); 
+  private final AutoCommandNoBalance m_autonomousNoBalanceCommand = new AutoCommandNoBalance(m_driveTrain); 
+
   //drive commands
   private final ArcadeDrive m_fastDrive = new ArcadeDrive(m_driveTrain, 1, driver);
   private final ArcadeDrive m_slowDrive = new ArcadeDrive(m_driveTrain, 0.3, driver);
@@ -60,6 +69,8 @@ public class RobotContainer {
     m_lobterStretchSubsystem.setDefaultCommand(m_lobterStretchManualCommand);
     m_tiltSubsystem.setDefaultCommand(m_tiltManualCommand);
     configureButtonBindings();
+    m_chooser.setDefaultOption("no balance", m_autonomousNoBalanceCommand);
+    m_chooser.addOption("balance", m_autonomousBalanceCommand);
   }
 
   
@@ -78,6 +89,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_chooser.getSelected();
   }
 }
