@@ -5,15 +5,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoCommandBalance;
 import frc.robot.commands.AutoCommandNoBalance;
+import frc.robot.commands.DriveTimedCommand;
 import frc.robot.commands.ManualArmCommand;
 import frc.robot.commands.ManualElevatorCommand;
 import frc.robot.commands.ManualLobterRunCommand;
 import frc.robot.commands.ManualLobterStretchCommand;
 import frc.robot.commands.ManualTiltCommand;
+import frc.robot.commands.SetArmCommand;
+import frc.robot.commands.SetLobterSpitCommand;
 import frc.robot.subsystems.ArmSubystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -21,6 +25,7 @@ import frc.robot.subsystems.LobterRunSubsystem;
 import frc.robot.subsystems.LobterStretchSubsystem;
 import frc.robot.subsystems.TiltSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
@@ -50,6 +55,7 @@ public class RobotContainer {
 
   //arm commands
   private final ManualArmCommand m_armManualCommand = new ManualArmCommand(m_armSubsystem, operator);
+  //private final SetArmCommand m_armUpCommand = new SetArmCommand(m_armSubsystem, "high");
   
   //elevator commands
   private final ManualElevatorCommand m_elevatorManualCommand = new ManualElevatorCommand(m_elevatorSubsystem, operator);
@@ -63,7 +69,9 @@ public class RobotContainer {
 
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
+
     m_armSubsystem.setDefaultCommand(m_armManualCommand);
+
     m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     m_lobterRunSubsystem.setDefaultCommand(m_lobterRunManualCommand);
     m_lobterStretchSubsystem.setDefaultCommand(m_lobterStretchManualCommand);
@@ -80,6 +88,12 @@ public class RobotContainer {
 
     fastButton.whenPressed(m_fastDrive);
     slowButton.whenPressed(m_slowDrive);
+
+    
+    /*
+    JoystickButton highScoreButton = new JoystickButton(operator, Constants.allScoreButton);
+    highScoreButton.whenPressed(new SequentialCommandGroup(m_armUpCommand, new DriveTimedCommand(m_driveTrain, 0.1, .2), new SetLobterSpitCommand(m_lobterRunSubsystem, m_lobterStretchSubsystem)));
+    */
   }
 
   /**
@@ -89,6 +103,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_chooser.getSelected();
+    //return m_chooser.getSelected();
+    return null;
   }
 }

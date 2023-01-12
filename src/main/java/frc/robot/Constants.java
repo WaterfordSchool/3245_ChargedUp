@@ -8,8 +8,10 @@ public final class Constants {
     //drive ids
         public static final int driveleft1ID = 1;
         public static final int driveleft2ID = 2;
-        public static final int driveright1ID = 3;
-        public static final int driveright2ID = 4;
+        public static final int driveleft3ID = 3;
+        public static final int driveright1ID = 4;
+        public static final int driveright2ID = 5;
+        public static final int driveright3ID = 6;
     //motor ids
         public static final int armMotorBaseJointID = 5;
         public static final int armMotorStretchJointID = 6;
@@ -30,19 +32,19 @@ public final class Constants {
         public static final double elevatorClosedMaxVal = 0.5;
 
         public static final double lobterStretchClosedRampRate = 0.4;
-        public static final double lobterStretchMaxVal = 0.5;
+        public static final double lobterStretchMaxVal = 0.3;
         public static final double lobterContactCurrentValue = 0;
 
         public static final double armBaseClosedRampRate = 0.4;
         public static final double armStretchClosedRampRate = 0.4;
-        public static final double armBaseClosedMaxOutput = 0.6;
-        public static final double armStretchClosedMaxOutput = 0.6;
+        public static final double armBaseClosedMaxOutput = 0.3;
+        public static final double armStretchClosedMaxOutput = 0.3;
 
         public static final double lobterDriveClosedrampRate = 0.4;
-        public static final double lobterDriveClosedMaxOutput = 0.25;
+        public static final double lobterDriveClosedMaxOutput = 0.15;
 
         public static final double tiltClosedRampRate = 0.4;
-        public static final double tiltMaxOutput = 0.5;
+        public static final double tiltMaxOutput = 0.2;
         //PID
         public static final double elevatorkF = 0.0;
         public static final double elevatorkP = 0.15;
@@ -100,5 +102,7 @@ public final class Constants {
         public static final int manualLobterSpitButton = 3;
         public static final int allScoreButton = 4;
         public static final int currentSlideButton = 5;
+
+        
     //sensors
 }

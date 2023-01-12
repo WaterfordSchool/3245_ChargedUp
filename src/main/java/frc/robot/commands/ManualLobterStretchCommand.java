@@ -39,6 +39,7 @@ public class ManualLobterStretchCommand extends CommandBase{
     @Override
     public boolean isFinished(){
         return false;
+        //return (!m_controller.getRawButton(Constants.currentSlideButton));
     }
 
 }

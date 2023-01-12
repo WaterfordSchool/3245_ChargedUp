@@ -13,8 +13,10 @@ public class DriveTrain extends SubsystemBase {
 
     private CANSparkMax left1;
     private CANSparkMax left2;
+    private CANSparkMax left3;
     private CANSparkMax right1;
     private CANSparkMax right2;
+    private CANSparkMax right3;
 
     private MotorControllerGroup leftDrive; 
     private MotorControllerGroup rightDrive; 
@@ -26,17 +28,19 @@ public class DriveTrain extends SubsystemBase {
     //4 drive neos
     left1 = new CANSparkMax(Constants.driveleft1ID, MotorType.kBrushless);
     left2 = new CANSparkMax(Constants.driveleft2ID, MotorType.kBrushless);
+    left3 = new CANSparkMax(Constants.driveleft3ID, MotorType.kBrushless);
     right1 = new CANSparkMax(Constants.driveright1ID, MotorType.kBrushless);
     right2 = new CANSparkMax(Constants.driveright2ID, MotorType.kBrushless);
+    right3 = new CANSparkMax(Constants.driveright3ID, MotorType.kBrushless);
 
 
-    leftDrive = new MotorControllerGroup(left1, left2);
-    rightDrive = new MotorControllerGroup(right1, right2);
+    leftDrive = new MotorControllerGroup(left1, left2, left3);
+    rightDrive = new MotorControllerGroup(right1, right2, right3);
 
     dT = new DifferentialDrive(leftDrive, rightDrive);
     
      //ramping
-     final double t = 0.3;
+     final double t = 0.5;
      left1.setOpenLoopRampRate(t);
      left2.setOpenLoopRampRate(t);
      right1.setOpenLoopRampRate(t);
@@ -68,5 +72,9 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+  public void driveNoController(double kSpeed, double time){
+    dT.arcadeDrive(kSpeed, 0);
   }
 }

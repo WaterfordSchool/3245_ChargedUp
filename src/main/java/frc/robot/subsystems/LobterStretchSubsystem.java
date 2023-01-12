@@ -89,6 +89,10 @@ public class LobterStretchSubsystem extends SubsystemBase{
         lobterStretchRight.set(Constants.lobterStretchMaxVal*controller.getRawAxis(Constants.manualElevatorAxis));
     }
 
+    public void drop(){
+        //set arms to open position
+    }
+
     public void currentOutputMode(){
         //1. track current of each motor
         //2. set threshhold
