@@ -5,10 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.MjpegServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,14 +22,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-    CameraServer.startAutomaticCapture();
-    
+    CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.putVideo("blur", 420, 690);    
   }
 
   @Override
   public void robotPeriodic() {
-    CvSink cvSink = CameraServer.getVideo();
-    CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
     CommandScheduler.getInstance().run();
   }
 

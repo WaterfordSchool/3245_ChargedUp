@@ -5,27 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoCommandBalance;
 import frc.robot.commands.AutoCommandNoBalance;
-import frc.robot.commands.DriveTimedCommand;
-import frc.robot.commands.ManualArmCommand;
-import frc.robot.commands.ManualElevatorCommand;
-import frc.robot.commands.ManualLobterRunCommand;
-import frc.robot.commands.ManualLobterStretchCommand;
-import frc.robot.commands.ManualTiltCommand;
-import frc.robot.commands.SetArmCommand;
-import frc.robot.commands.SetLobterSpitCommand;
-import frc.robot.subsystems.ArmSubystem;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.LobterRunSubsystem;
-import frc.robot.subsystems.LobterStretchSubsystem;
-import frc.robot.subsystems.TiltSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
@@ -37,11 +22,7 @@ public class RobotContainer {
 
   //subsystems
   private final DriveTrain m_driveTrain = new DriveTrain();
-  private final ArmSubystem m_armSubsystem = new ArmSubystem();
-  private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
-  private final LobterRunSubsystem m_lobterRunSubsystem = new LobterRunSubsystem();
-  private final LobterStretchSubsystem m_lobterStretchSubsystem = new LobterStretchSubsystem();
-  private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
+  
 
   //commands
   //auto command
@@ -54,34 +35,23 @@ public class RobotContainer {
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, driver);
 
   //arm commands
-  private final ManualArmCommand m_armManualCommand = new ManualArmCommand(m_armSubsystem, operator);
-  //private final SetArmCommand m_armUpCommand = new SetArmCommand(m_armSubsystem, "high");
   
   //elevator commands
-  private final ManualElevatorCommand m_elevatorManualCommand = new ManualElevatorCommand(m_elevatorSubsystem, operator);
 
   //lobter commands
-  private final ManualLobterRunCommand m_lobterRunManualCommand = new ManualLobterRunCommand(m_lobterRunSubsystem, operator);
-  private final ManualLobterStretchCommand m_lobterStretchManualCommand = new ManualLobterStretchCommand(m_lobterStretchSubsystem, operator);
 
   //tilt commands
-  private final ManualTiltCommand m_tiltManualCommand = new ManualTiltCommand(m_tiltSubsystem, operator);
 
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
 
-    m_armSubsystem.setDefaultCommand(m_armManualCommand);
-
-    m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
-    m_lobterRunSubsystem.setDefaultCommand(m_lobterRunManualCommand);
-    m_lobterStretchSubsystem.setDefaultCommand(m_lobterStretchManualCommand);
-    m_tiltSubsystem.setDefaultCommand(m_tiltManualCommand);
+    
     configureButtonBindings();
     m_chooser.setDefaultOption("no balance", m_autonomousNoBalanceCommand);
     m_chooser.addOption("balance", m_autonomousBalanceCommand);
   }
 
-  
+
   private void configureButtonBindings() {
     JoystickButton fastButton = new JoystickButton(driver, Constants.fastButton);
     JoystickButton slowButton = new JoystickButton(driver, Constants.slowButton);
@@ -89,7 +59,7 @@ public class RobotContainer {
     fastButton.whenPressed(m_fastDrive);
     slowButton.whenPressed(m_slowDrive);
 
-    
+
     /*
     JoystickButton highScoreButton = new JoystickButton(operator, Constants.allScoreButton);
     highScoreButton.whenPressed(new SequentialCommandGroup(m_armUpCommand, new DriveTimedCommand(m_driveTrain, 0.1, .2), new SetLobterSpitCommand(m_lobterRunSubsystem, m_lobterStretchSubsystem)));

@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TiltSubsystem;
+import frc.robot.subsystems.TiltSubsystemIDK;
 
 public class SetTiltCommand extends CommandBase{
 
-    private final TiltSubsystem m_tiltSubsystem;
+    private final TiltSubsystemIDK m_tiltSubsystem;
     private final String m_direction;
     
-    public SetTiltCommand(TiltSubsystem tiltSubystem, String direction){
+    public SetTiltCommand(TiltSubsystemIDK tiltSubystem, String direction){
         m_tiltSubsystem = tiltSubystem;
         m_direction = direction;
         addRequirements(m_tiltSubsystem);
