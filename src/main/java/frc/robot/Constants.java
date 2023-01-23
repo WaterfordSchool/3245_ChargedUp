@@ -8,10 +8,8 @@ public final class Constants {
     //drive ids
         public static final int driveleft1ID = 1;
         public static final int driveleft2ID = 2;
-        public static final int driveleft3ID = 3;
-        public static final int driveright1ID = 4;
-        public static final int driveright2ID = 5;
-        public static final int driveright3ID = 6;
+        public static final int driveright1ID = 3;
+        public static final int driveright2ID = 4;
     //motor ids
         public static final int armMotorBaseJointID = 5;
         public static final int armMotorWristJointID = 6;
@@ -81,6 +79,7 @@ public final class Constants {
         //drive axes: 0, 2, 3
         public static final int fastButton = 1;
         public static final int slowButton = 2;
+
     //operator controls
         //axes
         public static final int manualArmBaseJointAxis = 1;

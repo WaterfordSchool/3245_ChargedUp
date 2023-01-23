@@ -12,7 +12,8 @@ import frc.robot.Constants;
 public class TiltSubsystemIDK extends SubsystemBase{
     public final TalonFX tilt;
     public final TalonFXSensorCollection tiltEnc;
-    //do i even need this??? have wrist joint on arm
+    //even need this??? have wrist joint on arm
+    
     //init stuff
     public TiltSubsystemIDK(){
         //arm motors/encoders
