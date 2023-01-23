@@ -18,8 +18,8 @@ public final class Constants {
 
         public static final int elevatorMotorID = 7;
 
-        public static final int lobterRunLeftMotorID = 8;
-        public static final int lobterRunRightMotorID = 9;
+        public static final int clawRunLeftMotorID = 8;
+        public static final int clawRunRightMotorID = 9;
         public static final int clawCloseMotorID = 10;
 
         public static final int tiltMotorID = 12;
@@ -40,8 +40,8 @@ public final class Constants {
         public static final double armBaseClosedMaxOutput = 0.3;
         public static final double armWristClosedMaxOutput = 0.3;
 
-        public static final double lobterDriveClosedrampRate = 0.4;
-        public static final double lobterDriveClosedMaxOutput = 0.15;
+        public static final double clawDriveClosedrampRate = 0.4;
+        public static final double clawDriveClosedMaxOutput = 0.15;
 
         public static final double tiltClosedRampRate = 0.4;
         public static final double tiltMaxOutput = 0.2;
@@ -66,10 +66,10 @@ public final class Constants {
         public static final double tiltkI = 0.0;
         public static final double tiltkD = 0.0;
 
-        public static final double lobterRunkF = 0.0;
-        public static final double lobterRunkP = 0.15;
-        public static final double lobterRunkI = 0.0;
-        public static final double lobterRunkD = 0.0;
+        public static final double clawRunkF = 0.0;
+        public static final double clawRunkP = 0.15;
+        public static final double clawRunkI = 0.0;
+        public static final double clawRunkD = 0.0;
 
         public static final double clawClosekF = 0.0;
         public static final double clawClosekP = 0.15;
@@ -93,9 +93,9 @@ public final class Constants {
         public static final int manualTiltAxis = 6;
 
         //buttons
-        public static final int manualLobterLeftSpinButton = 1;
-        public static final int manualLobterRightSpinButton = 2;
-        public static final int manualLobterSpitButton = 3;
+        public static final int manualClawLeftSpinButton = 1;
+        public static final int manualClawRightSpinButton = 2;
+        public static final int manualClawSpitButton = 3;
         public static final int allScoreButton = 4;
         public static final int currentSlideButton = 5;
 
