@@ -49,10 +49,10 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void drive(XboxController driveController, double kSpeed) {
-    dT.arcadeDrive(driveController.getRawAxis(0) * kSpeed, driveController.getRawAxis(3) * kSpeed);
+  public void drive(XboxController driveController, double kSpeed, double kTurnSpeed) {
+    dT.arcadeDrive(driveController.getRawAxis(0) * kTurnSpeed, driveController.getRawAxis(3) * kSpeed);
     if(driveController.getRawAxis(2) > 0){
-    dT.arcadeDrive(driveController.getRawAxis(0) * kSpeed, -driveController.getRawAxis(2) * kSpeed);
+    dT.arcadeDrive(driveController.getRawAxis(0) * kTurnSpeed, -driveController.getRawAxis(2) * kSpeed);
   }
 }
 

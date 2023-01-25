@@ -8,12 +8,14 @@ public class ArcadeDrive extends CommandBase{
         
         private final DriveTrain m_driveTrain;
         double speed;
+        double turnSpeed;
         XboxController driveControl;
 
-        public ArcadeDrive(DriveTrain subsystem, double kSpeed, XboxController driverController) {
+        public ArcadeDrive(DriveTrain subsystem, double kSpeed, double kTurnSpeed, XboxController driverController) {
             m_driveTrain = subsystem;
             addRequirements(m_driveTrain);
             speed = kSpeed;
+            turnSpeed = kTurnSpeed;
             driveControl = driverController;
           }
           @Override
@@ -24,7 +26,7 @@ public class ArcadeDrive extends CommandBase{
           // Called when the command is initially scheduled.
           @Override
           public void execute() {
-            m_driveTrain.drive(driveControl, speed);
+            m_driveTrain.drive(driveControl, speed, turnSpeed);
           }
         
           @Override

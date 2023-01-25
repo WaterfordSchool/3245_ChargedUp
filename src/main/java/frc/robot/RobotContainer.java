@@ -30,9 +30,9 @@ public class RobotContainer {
   private final AutoCommandNoBalance m_autonomousNoBalanceCommand = new AutoCommandNoBalance(m_driveTrain); 
 
   //drive commands
-  private final ArcadeDrive m_fastDrive = new ArcadeDrive(m_driveTrain, 1, driver);
-  private final ArcadeDrive m_slowDrive = new ArcadeDrive(m_driveTrain, 0.3, driver);
-  private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, driver);
+  private final ArcadeDrive m_fastDrive = new ArcadeDrive(m_driveTrain, 1, 0.8, driver);
+  private final ArcadeDrive m_slowDrive = new ArcadeDrive(m_driveTrain, 0.3, 0.2, driver);
+  private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, 0.6, driver);
 
   //arm commands
   
