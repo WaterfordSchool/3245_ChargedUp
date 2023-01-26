@@ -9,9 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoCommandBalance;
 import frc.robot.commands.AutoCommandNoBalance;
+import frc.robot.commands.Spinjitsu;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 public class RobotContainer {
 
@@ -33,7 +35,7 @@ public class RobotContainer {
   private final ArcadeDrive m_fastDrive = new ArcadeDrive(m_driveTrain, 1, 0.8, driver);
   private final ArcadeDrive m_slowDrive = new ArcadeDrive(m_driveTrain, 0.3, 0.2, driver);
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, 0.6, driver);
-
+  private final Spinjitsu m_spinjitsu1 = new Spinjitsu(m_driveTrain, 1, driver);
   //arm commands
   
   //elevator commands
@@ -55,9 +57,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton fastButton = new JoystickButton(driver, Constants.fastButton);
     JoystickButton slowButton = new JoystickButton(driver, Constants.slowButton);
+    POVButton spinjitsuButton1 = new POVButton(driver, 90);
 
-    fastButton.whenPressed(m_fastDrive);
-    slowButton.whenPressed(m_slowDrive);
+
+
+    fastButton.whileHeld(m_fastDrive);
+    slowButton.whileHeld(m_slowDrive);
+    spinjitsuButton1.whileHeld(m_spinjitsu1);
 
 
     /*

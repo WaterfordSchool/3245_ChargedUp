@@ -57,12 +57,16 @@ public class DriveTrain extends SubsystemBase {
 }
 
   public void driveSlowAuto(){
-    dT.arcadeDrive(.3, 0);
+    dT.arcadeDrive(0, .3);
   }
 
   public void driveMidAuto(){
-    dT.arcadeDrive(.5, 0);
+    dT.arcadeDrive(0, .5);
 
+  }
+
+  public void spinjitsu(int direction){
+    dT.arcadeDrive(direction*1, 0);
   }
   
   @Override
