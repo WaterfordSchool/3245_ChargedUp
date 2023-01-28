@@ -17,18 +17,18 @@ public class Spinjitsu extends CommandBase{
             driveControl = driverController;
           }
           @Override
-          public void initialize(){
-            //ramping
-          }
+          public void initialize(){}
 
           // Called when the command is initially scheduled.
           @Override
           public void execute() {
+            //spin really, really fast
             m_driveTrain.spinjitsu(direction);
           }
         
           @Override
           public boolean isFinished() {
+            //not pressing right D pad 
             return !driveControl.getRawButton(7);
           }
   }

@@ -102,4 +102,16 @@ public final class Constants {
         //gyro
 
         //lime
+
+    //left TODO:
+    /*
+    vision
+    gyro, balancing
+    auto
+    complex auto
+    ID config
+    PID config
+    figure out subsystems
+    succeed
+    */
 }
