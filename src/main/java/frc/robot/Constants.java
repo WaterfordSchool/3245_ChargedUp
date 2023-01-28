@@ -98,6 +98,8 @@ public final class Constants {
         public static final int allScoreButton = 4;
         public static final int currentSlideButton = 5;
 
-        
     //sensors
+        //gyro
+
+        //lime
 }

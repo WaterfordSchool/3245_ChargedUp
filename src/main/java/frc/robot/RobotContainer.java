@@ -18,13 +18,12 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-  
+
   XboxController driver = new XboxController(0);
   XboxController operator = new XboxController(1);
 
   //subsystems
   private final DriveTrain m_driveTrain = new DriveTrain();
-  
 
   //commands
   //auto command
@@ -36,21 +35,24 @@ public class RobotContainer {
   private final ArcadeDrive m_slowDrive = new ArcadeDrive(m_driveTrain, 0.3, 0.2, driver);
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, 0.6, driver);
   private final Spinjitsu m_spinjitsu1 = new Spinjitsu(m_driveTrain, 1, driver);
+
   //arm commands
-  
+
   //elevator commands
 
-  //lobter commands
+  //claw commands
 
   //tilt commands
 
   public RobotContainer() {
+    //default commands
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
-
     
-    configureButtonBindings();
+    //choosable auto
     m_chooser.setDefaultOption("no balance", m_autonomousNoBalanceCommand);
     m_chooser.addOption("balance", m_autonomousBalanceCommand);
+
+    configureButtonBindings();
   }
 
 
@@ -58,7 +60,6 @@ public class RobotContainer {
     JoystickButton fastButton = new JoystickButton(driver, Constants.fastButton);
     JoystickButton slowButton = new JoystickButton(driver, Constants.slowButton);
     POVButton spinjitsuButton1 = new POVButton(driver, 90);
-
 
 
     fastButton.whileHeld(m_fastDrive);
@@ -79,6 +80,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+    //TODO: make auto work
     //return m_chooser.getSelected();
     return null;
   }
