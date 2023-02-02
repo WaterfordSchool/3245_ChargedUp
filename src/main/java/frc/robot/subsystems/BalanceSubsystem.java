@@ -21,8 +21,17 @@ public class BalanceSubsystem extends SubsystemBase{
         //set max voltage drive motor limit
     }
     
-    public void getGyro(){
-        gyro.getAngle();
+    public double getGyro(){
+        return gyro.getAngle();
+    }
+    public void reset(){
+        gyro.reset();
+    }
+    public void calibrate(){
+        gyro.calibrate();
+    }
+    public boolean onTarget(){
+        return gyro.getAngle()>0;
     }
     //not entirely sure yet
 }

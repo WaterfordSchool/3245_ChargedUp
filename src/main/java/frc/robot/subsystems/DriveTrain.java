@@ -19,7 +19,7 @@ public class DriveTrain extends SubsystemBase {
     private MotorControllerGroup leftDrive; 
     private MotorControllerGroup rightDrive; 
 
-    private DifferentialDrive dT;
+    private DifferentialDrive dT; 
     
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
@@ -76,5 +76,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void driveNoController(double kSpeed, double time){
     dT.arcadeDrive(kSpeed, 0);
+  }
+
+  public void stop(){
+    dT.arcadeDrive(0, 0);
   }
 }

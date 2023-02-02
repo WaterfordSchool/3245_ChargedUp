@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoCommandBalance;
 import frc.robot.commands.AutoCommandNoBalance;
@@ -51,7 +52,7 @@ public class RobotContainer {
     //choosable auto
     m_chooser.setDefaultOption("no balance", m_autonomousNoBalanceCommand);
     m_chooser.addOption("balance", m_autonomousBalanceCommand);
-
+    SmartDashboard.putData("autos", m_chooser);
     configureButtonBindings();
   }
 
@@ -81,7 +82,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //TODO: make auto work
-    //return m_chooser.getSelected();
-    return null;
+    return m_chooser.getSelected();
+    //return null;
   }
 }
