@@ -23,7 +23,7 @@ public class ManualClawCloseCommand extends CommandBase{
     @Override
     public void execute() {
         if(m_controller.getRawButton(Constants.currentSlideButton)){
-            m_lobterStretchSubsystem.currentOutputMode();
+           // m_lobterStretchSubsystem.currentOutputMode();
         }
         if(!m_controller.getRawButton(Constants.currentSlideButton)){
             m_lobterStretchSubsystem.moveManual(m_controller);
