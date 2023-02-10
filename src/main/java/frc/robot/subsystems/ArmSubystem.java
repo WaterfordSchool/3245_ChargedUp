@@ -10,32 +10,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubystem extends SubsystemBase{
-    public final TalonFX armMotorBaseJoint;
+    public final TalonFX armMotorShoulderMaster;
+    public final TalonFX armMotorShoulderSlave;
     public final TalonFX armMotorWristJoint;
-    public final TalonFXSensorCollection armBaseJointEnc;
-    public final TalonFXSensorCollection armWristJointEnc;
-    /*TODO
-    track encoder values in time based, tune appropriately
-    tune PID
-    think about motion magic
-    */
 
-    //wrist is stretch motor 
-    //motors
+    public final TalonFXSensorCollection armShoulderMasterEnc;
+    public final TalonFXSensorCollection armShoulderSlaveEnc;
+    public final TalonFXSensorCollection armWristJointEnc;
 
     //init stuff
     public ArmSubystem(){
         //arm motors/encoders
-        armMotorBaseJoint = new TalonFX(Constants.armMotorBaseJointID);
+        armMotorShoulderMaster = new TalonFX(Constants.armMotorShoulderMasterID);
+        armMotorShoulderSlave = new TalonFX(Constants.armMotorShoulderSlaveID);
         armMotorWristJoint = new TalonFX(Constants.armMotorWristJointID);
-        armBaseJointEnc = new TalonFXSensorCollection(armMotorBaseJoint);
+
+        armShoulderMasterEnc = new TalonFXSensorCollection(armMotorShoulderMaster);
+        armShoulderSlaveEnc = new TalonFXSensorCollection(armMotorShoulderSlave);
         armWristJointEnc = new TalonFXSensorCollection(armMotorWristJoint);
 
         //config PID
-        armMotorBaseJoint.config_kF(0, Constants.armBasekF);
-        armMotorBaseJoint.config_kP(0, Constants.armBasekP);
-        armMotorBaseJoint.config_kI(0, Constants.armBasekI);
-        armMotorBaseJoint.config_kD(0, Constants.armBasekD);
+        armMotorShoulderMaster.config_kF(0, Constants.armBasekF);
+        armMotorShoulderMaster.config_kP(0, Constants.armBasekP);
+        armMotorShoulderMaster.config_kI(0, Constants.armBasekI);
+        armMotorShoulderMaster.config_kD(0, Constants.armBasekD);
 
         armMotorWristJoint.config_kF(0, Constants.armWristkF);
         armMotorWristJoint.config_kP(0, Constants.armWristkP);
@@ -43,23 +41,23 @@ public class ArmSubystem extends SubsystemBase{
         armMotorWristJoint.config_kD(0, Constants.armWristkD);
 
         //config max output
-        armMotorBaseJoint.configClosedLoopPeakOutput(0, Constants.armBaseClosedMaxOutput);
-        armMotorBaseJoint.configClosedloopRamp(Constants.armBaseClosedRampRate);
+        armMotorShoulderMaster.configClosedLoopPeakOutput(0, Constants.armBaseClosedMaxOutput);
+        armMotorShoulderMaster.configClosedloopRamp(Constants.armBaseClosedRampRate);
         armMotorWristJoint.configClosedLoopPeakOutput(0, Constants.armWristClosedMaxOutput);
         armMotorWristJoint.configClosedloopRamp(Constants.armWristClosedRampRate);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Base Arm Joint Encoder Absolute Position", armBaseJointEnc.getIntegratedSensorAbsolutePosition());
+        SmartDashboard.putNumber("Base Arm Joint Encoder Absolute Position", armShoulderMasterEnc.getIntegratedSensorAbsolutePosition());
         SmartDashboard.putNumber("Wrist Arm Joint Encoder Absolute Position", armWristJointEnc.getIntegratedSensorAbsolutePosition());
-        SmartDashboard.putNumber("Base Arm Joint Encoder Position", armBaseJointEnc.getIntegratedSensorPosition());
+        SmartDashboard.putNumber("Base Arm Joint Encoder Position", armShoulderMasterEnc.getIntegratedSensorPosition());
         SmartDashboard.putNumber("Wrist Arm Joint Encoder Position", armWristJointEnc.getIntegratedSensorPosition());
     }
     
     public void resetEncoders(){
         //reset arm encoders (use in loading, low position)
-        armBaseJointEnc.setIntegratedSensorPosition(0, 15);
+        armShoulderMasterEnc.setIntegratedSensorPosition(0, 15);
         armWristJointEnc.setIntegratedSensorPosition(0, 15);
     }
 
@@ -81,7 +79,7 @@ public class ArmSubystem extends SubsystemBase{
 
     public void moveManual(XboxController controller){
         //move arm manually
-        armMotorBaseJoint.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualArmBaseJointAxis));
-        armMotorWristJoint.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualArmWristJointAxis));
+        armMotorShoulderMaster.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualShoulderAxis));
+        armMotorWristJoint.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualWristAxis));
     }
 }

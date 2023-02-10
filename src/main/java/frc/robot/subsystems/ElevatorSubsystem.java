@@ -1,10 +1,8 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,9 +10,14 @@ import frc.robot.Constants;
 
 
 public class ElevatorSubsystem extends SubsystemBase{
-    public final CANSparkMax elevator;
+    //falcon
+    public final TalonFX elevatorMaster;
+    public final TalonFXSensorCollection elevatorMasterEnc;
+    public final TalonFX elevatorSlave;
+    public final TalonFXSensorCollection elevatorSlaveEnc;
+   /*public final CANSparkMax elevator;
     public final SparkMaxPIDController elevatorPID;
-    private final RelativeEncoder elevatorEnc;
+    private final RelativeEncoder elevatorEnc;*/
     /*TODO
      * attach encoder
      * tune encoder, check polarity
@@ -25,44 +28,47 @@ public class ElevatorSubsystem extends SubsystemBase{
 
     //init stuff
     public ElevatorSubsystem(){
-        elevator = new CANSparkMax(Constants.elevatorMotorID, MotorType.kBrushless);
-        elevatorEnc = elevator.getEncoder();
-        elevatorPID = elevator.getPIDController();
+        elevatorMaster = new TalonFX(Constants.elevatorMotorMasterID);
+        elevatorMasterEnc = elevatorMaster.getSensorCollection();
+        elevatorSlave = new TalonFX(Constants.elevatorMotorSlaveID);
+        elevatorSlaveEnc = elevatorSlave.getSensorCollection();
         //config PID
-        elevatorPID.setFF(Constants.elevatorkF);
-        elevatorPID.setP(Constants.elevatorkP);
-        elevatorPID.setI(Constants.elevatorkI);
-        elevatorPID.setD(Constants.elevatorkD);
+        elevatorMaster.config_kF(0, Constants.elevatorkF);
+        elevatorMaster.config_kP(0, Constants.elevatorkF);
+        elevatorMaster.config_kI(0, Constants.elevatorkF);
+        elevatorMaster.config_kD(0, Constants.elevatorkF);
+
         
         //set max voltage motor limit
-        elevator.setClosedLoopRampRate(Constants.elevatorClosedRampRate);
-        elevatorPID.setOutputRange(-Constants.elevatorClosedMaxVal, Constants.elevatorClosedMaxVal);
+        elevatorMaster.configClosedloopRamp(Constants.elevatorClosedRampRate);
+        elevatorMaster.configClosedLoopPeakOutput(0, Constants.elevatorClosedMaxVal);
+        elevatorSlave.follow(elevatorMaster);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator Encoder Position", elevatorEnc.getPosition());
-        SmartDashboard.putNumber("Elevator Encoder Position Conversion Factor", elevatorEnc.getPositionConversionFactor());
-        SmartDashboard.putNumber("Elevator Velocity", elevatorEnc.getVelocity());
-        SmartDashboard.putNumber("Elevator Encoder Counts per Rev", elevatorEnc.getCountsPerRevolution());
+        SmartDashboard.putNumber("Elevator Encoder Absolute Position", elevatorMasterEnc.getIntegratedSensorAbsolutePosition());
+        SmartDashboard.putNumber("Elevator Encoder Relative Position", elevatorMasterEnc.getIntegratedSensorPosition());
     }
     
     public void resetElevatorEncoder(){
         //set encoder value to 0
-        elevatorEnc.setPosition(0);
+        elevatorMasterEnc.setIntegratedSensorPosition(0, 15);
     }
 
     public void moveDownElevator(){
         //set elevator to down encoder position
+        elevatorMaster.set(ControlMode.Position, Constants.elevatorDownPos);
     }
 
     public void moveUpElevator(){
         //set elevator to up encoder position
+        elevatorMaster.set(ControlMode.Position, Constants.elevatorUpPos);
     }
 
     public void moveManual(XboxController controller){
         //move elevator manually
-        elevator.set(0.4*controller.getRawAxis(Constants.manualElevatorAxis));
+        elevatorMaster.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualElevatorAxis));
     }
 
 }

@@ -11,14 +11,16 @@ public final class Constants {
         public static final int driveright1ID = 3;
         public static final int driveright2ID = 4;
     //motor ids
-        public static final int armMotorBaseJointID = 5;
+        public static final int armMotorShoulderMasterID = 5;
+        public static final int armMotorShoulderSlaveID = 13;
         public static final int armMotorWristJointID = 6;
 
-        public static final int elevatorMotorID = 7;
+        public static final int elevatorMotorMasterID = 7;
+        public static final int elevatorMotorSlaveID = 8;
 
-        public static final int clawRunLeftMotorID = 8;
-        public static final int clawRunRightMotorID = 9;
-        public static final int clawCloseMotorID = 10;
+        public static final int clawRunLeftMotorID = 9;
+        public static final int clawRunRightMotorID = 10;
+        public static final int clawCloseMotorID = 11;
 
         public static final int tiltMotorID = 12;
     //gains, PID
@@ -82,8 +84,8 @@ public final class Constants {
 
     //operator controls
         //axes
-        public static final int manualArmBaseJointAxis = 1;
-        public static final int manualArmWristJointAxis = 2;
+        public static final int manualShoulderAxis = 1;
+        public static final int manualWristAxis = 2;
 
         public static final int manualElevatorAxis = 3; 
 
@@ -98,6 +100,10 @@ public final class Constants {
         public static final int allScoreButton = 4;
         public static final int currentSlideButton = 5;
 
+        //encoder values
+        public static final double elevatorUpPos = 0;
+        public static final double elevatorDownPos = 0;
+        public static final double elevatorMidPos = 0;
     //sensors
         //gyro
 

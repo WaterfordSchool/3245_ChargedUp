@@ -64,6 +64,9 @@ public class DriveTrain extends SubsystemBase {
     dT.arcadeDrive(0, .5);
 
   }
+  public void driveAuto(double speed, double rotation){
+    dT.arcadeDrive(rotation, speed);
+  }
 
   public void spinjitsu(int direction){
     dT.arcadeDrive(direction*1, 0);
