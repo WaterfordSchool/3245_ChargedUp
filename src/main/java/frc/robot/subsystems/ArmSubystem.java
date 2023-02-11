@@ -45,6 +45,8 @@ public class ArmSubystem extends SubsystemBase{
         armMotorShoulderMaster.configClosedloopRamp(Constants.armBaseClosedRampRate);
         armMotorWristJoint.configClosedLoopPeakOutput(0, Constants.armWristClosedMaxOutput);
         armMotorWristJoint.configClosedloopRamp(Constants.armWristClosedRampRate);
+
+        armMotorShoulderSlave.follow(armMotorShoulderMaster);
     }
 
     @Override
@@ -59,22 +61,31 @@ public class ArmSubystem extends SubsystemBase{
         //reset arm encoders (use in loading, low position)
         armShoulderMasterEnc.setIntegratedSensorPosition(0, 15);
         armWristJointEnc.setIntegratedSensorPosition(0, 15);
+        armWristJointEnc.setIntegratedSensorPosition(0, 15);
     }
 
     public void moveLow(){
         //set arm to low encoder positions
+        armMotorShoulderMaster.set(ControlMode.Position, Constants.shoulderDownPos);
+        armMotorWristJoint.set(ControlMode.Position, Constants.wristDownPos);
     }
 
     public void moveMid(){
         //setarm to mid encoder positions
+        armMotorShoulderMaster.set(ControlMode.Position, Constants.shoulderMidPos);
+        armMotorWristJoint.set(ControlMode.Position, Constants.wristMidPos);
     }
 
     public void moveHigh(){
         //set arm to high encoder positions
+        armMotorShoulderMaster.set(ControlMode.Position, Constants.shoulderUpPos);
+        armMotorWristJoint.set(ControlMode.Position, Constants.wristUpPos);
     }
 
     public void moveBack(){
         //set arm to 0 encoder positions
+        armMotorShoulderMaster.set(ControlMode.Position, 0);
+        armMotorWristJoint.set(ControlMode.Position, 0);
     }
 
     public void moveManual(XboxController controller){

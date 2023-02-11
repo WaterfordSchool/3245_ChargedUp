@@ -1,13 +1,11 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,6 +14,7 @@ public class ClawCloseSubsystem extends SubsystemBase{
     public final CANSparkMax clawCloseOpenMotor;
     public final SparkMaxPIDController clawCloseOpenPID;
     public final RelativeEncoder clawcloseOpenEnc;
+    public final DigitalInput limSwitch;
     /*TODO
     track encoder values in time based, tune appropriately
     tune PID
@@ -40,6 +39,8 @@ public class ClawCloseSubsystem extends SubsystemBase{
         //config max output and ramping
         clawCloseOpenMotor.setClosedLoopRampRate(Constants.clawCloseClosedRampRate);
         clawCloseOpenPID.setOutputRange(-Constants.clawCloseMaxVal, Constants.clawCloseMaxVal);
+
+        limSwitch = new DigitalInput(0);
     }
 
     @Override
@@ -72,15 +73,29 @@ public class ClawCloseSubsystem extends SubsystemBase{
         //set arms to open position
     }
 
-    /*public void currentOutputMode(){
+    public void currentOutputMode(){
         //1. track current of each motor
         //2. set threshhold
         //3. probably put this in time based
-        if(clawCloseOpenMotor.getStatorCurrent()>Constants.clawContactCurrentValue){
-            clawCloseOpenMotor.set(ControlMode.PercentOutput, 0);
+        if(clawCloseOpenMotor.getOutputCurrent()<Constants.clawContactCurrentValue){
+            clawCloseOpenMotor.set(Constants.clawNoContactSpeed);
         }
-        if(clawCloseOpenMotor.getStatorCurrent()<Constants.clawContactCurrentValue){
-            clawCloseOpenMotor.set(ControlMode.PercentOutput, Constants.clawNoContactSpeed);
+        if(clawCloseOpenMotor.getOutputCurrent()>Constants.clawContactCurrentValue){
+            clawCloseOpenMotor.set(0);
         }
-    }*/
+    }
+    public double getCurrentOutput(){
+        return clawCloseOpenMotor.getOutputCurrent();
+    }
+
+    public void limSwitchMode(){
+        clawCloseOpenMotor.set(Constants.clawContactCurrentValue);
+        if(limSwitch.get()){
+            clawCloseOpenMotor.set(0);
+        }
+    }
+
+    public boolean getLimSwitch(){
+        return limSwitch.get();
+    }
 }

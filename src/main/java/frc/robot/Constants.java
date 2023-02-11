@@ -102,12 +102,21 @@ public final class Constants {
 
         //encoder values
         public static final double elevatorUpPos = 0;
-        public static final double elevatorDownPos = 0;
         public static final double elevatorMidPos = 0;
+        public static final double elevatorDownPos = 0;
+
+        public static final double shoulderUpPos = 0;
+        public static final double shoulderMidPos = 0;
+        public static final double shoulderDownPos = 0;
+
+        public static final double wristUpPos = 0;
+        public static final double wristMidPos = 0;
+        public static final double wristDownPos = 0;
     //sensors
         //gyro
 
         //lime
+
 
     //left TODO:
     /*

@@ -11,7 +11,10 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoCommandBalance;
 import frc.robot.commands.AutoCommandNoBalance;
 import frc.robot.commands.Spinjitsu;
+import frc.robot.subsystems.ClawCloseSubsystem;
+import frc.robot.subsystems.ClawRunSubsystem;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -25,7 +28,6 @@ public class RobotContainer {
 
   //subsystems
   private final DriveTrain m_driveTrain = new DriveTrain();
-
   //commands
   //auto command
   private final AutoCommandBalance m_autonomousBalanceCommand = new AutoCommandBalance(m_driveTrain); 
@@ -66,12 +68,22 @@ public class RobotContainer {
     fastButton.whileHeld(m_fastDrive);
     slowButton.whileHeld(m_slowDrive);
     spinjitsuButton1.whileHeld(m_spinjitsu1);
-
+    
+    /*
+    command groups: .whenPressed
+    */
 
     /*
-    JoystickButton highScoreButton = new JoystickButton(operator, Constants.allScoreButton);
-    highScoreButton.whenPressed(new SequentialCommandGroup(m_armUpCommand, new DriveTimedCommand(m_driveTrain, 0.1, .2), new SetLobterSpitCommand(m_lobterRunSubsystem, m_lobterStretchSubsystem)));
+    position sets: .whileHeld, .whenInactive
+    armup.whileheld(new up)
+    armdown.whileheld(new down)
+    armup.wheninactive(new manual)
+    armdown.wheninactive(new manual)
     */
+
+    
+
+
   }
 
   /**
