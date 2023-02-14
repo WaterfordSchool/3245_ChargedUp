@@ -94,8 +94,8 @@ public final class Constants {
         public static final int manualTiltAxis = 6;
 
         //buttons
-        public static final int manualClawLeftSpinButton = 1;
-        public static final int manualClawRightSpinButton = 2;
+        //public static final int manualClawLeftSpinButton = 1;
+        public static final int manualClawInButton = 2;
         public static final int manualClawSpitButton = 3;
         public static final int allScoreButton = 4;
         public static final int currentSlideButton = 5;

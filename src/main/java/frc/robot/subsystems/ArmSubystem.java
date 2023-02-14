@@ -60,7 +60,7 @@ public class ArmSubystem extends SubsystemBase{
     public void resetEncoders(){
         //reset arm encoders (use in loading, low position)
         armShoulderMasterEnc.setIntegratedSensorPosition(0, 15);
-        armWristJointEnc.setIntegratedSensorPosition(0, 15);
+        armShoulderSlaveEnc.setIntegratedSensorPosition(0, 15);
         armWristJointEnc.setIntegratedSensorPosition(0, 15);
     }
 

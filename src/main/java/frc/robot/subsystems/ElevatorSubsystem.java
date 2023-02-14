@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,20 +13,11 @@ import frc.robot.Constants;
 
 public class ElevatorSubsystem extends SubsystemBase{
     //falcon
-    public final TalonFX elevatorMaster;
-    public final TalonFXSensorCollection elevatorMasterEnc;
-    public final TalonFX elevatorSlave;
-    public final TalonFXSensorCollection elevatorSlaveEnc;
-   /*public final CANSparkMax elevator;
-    public final SparkMaxPIDController elevatorPID;
-    private final RelativeEncoder elevatorEnc;*/
-    /*TODO
-     * attach encoder
-     * tune encoder, check polarity
-     * tune PID
-     * think about motion magic?
-     */
-    //motors
+    private final TalonFX elevatorMaster;
+    private final TalonFXSensorCollection elevatorMasterEnc;
+    private final TalonFX elevatorSlave;
+    private final TalonFXSensorCollection elevatorSlaveEnc;
+    private final DigitalInput elevatorLimSwitch;
 
     //init stuff
     public ElevatorSubsystem(){
@@ -32,6 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         elevatorMasterEnc = elevatorMaster.getSensorCollection();
         elevatorSlave = new TalonFX(Constants.elevatorMotorSlaveID);
         elevatorSlaveEnc = elevatorSlave.getSensorCollection();
+        elevatorLimSwitch = new DigitalInput(1);
         //config PID
         elevatorMaster.config_kF(0, Constants.elevatorkF);
         elevatorMaster.config_kP(0, Constants.elevatorkF);
@@ -69,6 +63,14 @@ public class ElevatorSubsystem extends SubsystemBase{
     public void moveManual(XboxController controller){
         //move elevator manually
         elevatorMaster.set(ControlMode.PercentOutput, 0.4*controller.getRawAxis(Constants.manualElevatorAxis));
+    }
+
+    public boolean getLimSwitch(){
+        return elevatorLimSwitch.get();
+    }
+
+    public void stopElevator(){
+        elevatorMaster.set(ControlMode.PercentOutput, 0);
     }
 
 }

@@ -2,19 +2,21 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClawV2Subsystem extends SubsystemBase{
-    public final CANSparkMax spinLeft;
-    public final CANSparkMax spinRight;
-    /*public final TalonFXSensorCollection spinLeftEnc;
-    public final TalonFXSensorCollection spinRightEnc;*/
+    public final CANSparkMax clawv2left;
+    public final CANSparkMax clawv2right;
+    public final DigitalInput limSwitchClaw;
+
     
       public ClawV2Subsystem() {
-        spinLeft = new CANSparkMax(Constants.clawRunLeftMotorID, MotorType.kBrushless);
-        spinRight = new CANSparkMax(Constants.clawRunRightMotorID, MotorType.kBrushless);
+        clawv2left = new CANSparkMax(Constants.clawRunLeftMotorID, MotorType.kBrushless);
+        clawv2right = new CANSparkMax(Constants.clawRunRightMotorID, MotorType.kBrushless);
+        limSwitchClaw = new DigitalInput(0);
       }
       
     @Override
@@ -24,26 +26,39 @@ public class ClawV2Subsystem extends SubsystemBase{
     }
     
     public void manualSpin(XboxController controller){
-        //todo: need other motor to spin in other direction for spin methods?
-        if(controller.getRawButton(Constants.manualClawLeftSpinButton)){
-            spinLeft.set(-0.25);
+        //in
+        if(controller.getRawButton(Constants.manualClawInButton)){
+            clawv2left.set(-0.25);
+            clawv2right.set(0.25);
         }
-        if(controller.getRawButton(Constants.manualClawRightSpinButton)){
-            spinRight.set(0.25);
-        }
+        //out
         if(controller.getRawButton(Constants.manualClawSpitButton)){
-            spinLeft.set(0.25);
-            spinRight.set(-0.25);
+            clawv2left.set(0.25);
+            clawv2right.set(-0.25);
         }
-        if(!controller.getRawButton(Constants.manualClawLeftSpinButton) && !controller.getRawButton(Constants.manualClawRightSpinButton) && !controller.getRawButton(Constants.manualClawSpitButton) && !controller.getRawButton(Constants.allScoreButton)){
-            spinLeft.set(0);
-            spinRight.set(0);
+        if(!controller.getRawButton(Constants.manualClawInButton) && !controller.getRawButton(Constants.manualClawSpitButton)){
+            clawv2left.set(0);
+            clawv2right.set(0);
+        }
+    }
+    public void closeWithLimSwitch(){
+        if(!limSwitchClaw.get()){
+            clawv2left.set(-Constants.clawContactCurrentValue);
+            clawv2right.set(Constants.clawContactCurrentValue);
+        }
+        if(limSwitchClaw.get()){
+            clawv2left.set(0);
+            clawv2right.set(0);
         }
     }
 
+    public boolean getLimSwitch(){
+        return limSwitchClaw.get();
+    }
+
     public void stopSpin(){
-        spinLeft.set(0);
-        spinRight.set(0);
+        clawv2left.set(0);
+        clawv2right.set(0);
     }
 
 }

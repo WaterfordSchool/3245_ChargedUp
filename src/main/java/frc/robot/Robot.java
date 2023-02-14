@@ -26,6 +26,8 @@ public class Robot extends TimedRobot {
     CameraServer.putVideo("blur", 420, 690);   
     usbCamera.setResolution(160, 120);
     usbCamera.setFPS(25);
+
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
   @Override

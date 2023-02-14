@@ -62,21 +62,19 @@ public class ClawRunSubsystem extends SubsystemBase{
     
     public void manualSpin(XboxController controller){
         //todo: need other motor to spin in other direction for spin methods?
-        if(controller.getRawButton(Constants.manualClawLeftSpinButton)){
+        if(controller.getRawButton(Constants.manualClawInButton)){
             spinLeft.set(ControlMode.PercentOutput, -0.25);
-        }
-        if(controller.getRawButton(Constants.manualClawRightSpinButton)){
             spinRight.set(ControlMode.PercentOutput, 0.25);
         }
+    
         if(controller.getRawButton(Constants.manualClawSpitButton)){
             spinLeft.set(ControlMode.PercentOutput, 0.25);
             spinRight.set(ControlMode.PercentOutput, -0.25);
         }
-        if(!controller.getRawButton(Constants.manualClawLeftSpinButton) && !controller.getRawButton(Constants.manualClawRightSpinButton) && !controller.getRawButton(Constants.manualClawSpitButton) && !controller.getRawButton(Constants.allScoreButton)){
+        if(!controller.getRawButton(Constants.manualClawInButton) && !controller.getRawButton(Constants.manualClawSpitButton)){
             spinLeft.set(ControlMode.PercentOutput, 0);
             spinRight.set(ControlMode.PercentOutput, 0);
         }
-        
     }
 
     public void stopSpin(){
