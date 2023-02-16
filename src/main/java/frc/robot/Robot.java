@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,18 +14,14 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   
   private RobotContainer m_robotContainer;
-  private UsbCamera usbCamera = new UsbCamera("cam", 0);
 
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     //getInstance() deprecated but it's ok for now
-    CameraServer.getInstance().startAutomaticCapture();
-    CameraServer.putVideo("blur", 420, 690);   
-    usbCamera.setResolution(160, 120);
-    usbCamera.setFPS(25);
+    /*CameraServer.putVideo("blur", 420, 690);   
 
-    CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.getInstance().startAutomaticCapture();*/
   }
 
   @Override

@@ -21,6 +21,8 @@ public final class Constants {
         public static final int clawRunLeftMotorID = 9;
         public static final int clawRunRightMotorID = 10;
         public static final int clawCloseMotorID = 11;
+        public static final int clawV2flangeMotorID = 14;
+        public static final int clawV2clawMotorID = 15;
 
         public static final int tiltMotorID = 12;
     //gains, PID
@@ -97,8 +99,9 @@ public final class Constants {
         //public static final int manualClawLeftSpinButton = 1;
         public static final int manualClawInButton = 2;
         public static final int manualClawSpitButton = 3;
-        public static final int allScoreButton = 4;
-        public static final int currentSlideButton = 5;
+        public static final int manualFlangeInButton = 4;
+        public static final int manualFlangeOutButton = 5;
+        public static final int currentSlideButton = 6;
 
         //encoder values
         public static final double elevatorUpPos = 0;

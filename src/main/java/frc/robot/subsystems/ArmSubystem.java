@@ -11,24 +11,21 @@ import frc.robot.Constants;
 
 public class ArmSubystem extends SubsystemBase{
     public final TalonFX armMotorShoulderMaster;
-    public final TalonFX armMotorShoulderSlave;
     public final TalonFX armMotorWristJoint;
 
     public final TalonFXSensorCollection armShoulderMasterEnc;
-    public final TalonFXSensorCollection armShoulderSlaveEnc;
     public final TalonFXSensorCollection armWristJointEnc;
 
     //init stuff
     public ArmSubystem(){
         //arm motors/encoders
         armMotorShoulderMaster = new TalonFX(Constants.armMotorShoulderMasterID);
-        armMotorShoulderSlave = new TalonFX(Constants.armMotorShoulderSlaveID);
         armMotorWristJoint = new TalonFX(Constants.armMotorWristJointID);
 
         armShoulderMasterEnc = new TalonFXSensorCollection(armMotorShoulderMaster);
-        armShoulderSlaveEnc = new TalonFXSensorCollection(armMotorShoulderSlave);
         armWristJointEnc = new TalonFXSensorCollection(armMotorWristJoint);
 
+       /* 
         //config PID
         armMotorShoulderMaster.config_kF(0, Constants.armBasekF);
         armMotorShoulderMaster.config_kP(0, Constants.armBasekP);
@@ -45,8 +42,7 @@ public class ArmSubystem extends SubsystemBase{
         armMotorShoulderMaster.configClosedloopRamp(Constants.armBaseClosedRampRate);
         armMotorWristJoint.configClosedLoopPeakOutput(0, Constants.armWristClosedMaxOutput);
         armMotorWristJoint.configClosedloopRamp(Constants.armWristClosedRampRate);
-
-        armMotorShoulderSlave.follow(armMotorShoulderMaster);
+        */
     }
 
     @Override
@@ -60,7 +56,7 @@ public class ArmSubystem extends SubsystemBase{
     public void resetEncoders(){
         //reset arm encoders (use in loading, low position)
         armShoulderMasterEnc.setIntegratedSensorPosition(0, 15);
-        armShoulderSlaveEnc.setIntegratedSensorPosition(0, 15);
+        //armShoulderSlaveEnc.setIntegratedSensorPosition(0, 15);
         armWristJointEnc.setIntegratedSensorPosition(0, 15);
     }
 

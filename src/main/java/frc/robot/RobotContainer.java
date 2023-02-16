@@ -10,7 +10,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoCommandBalance;
 import frc.robot.commands.AutoCommandNoBalance;
+import frc.robot.commands.ManualArmCommand;
+import frc.robot.commands.ManualClawV2RunCommand;
 import frc.robot.commands.Spinjitsu;
+import frc.robot.subsystems.ArmSubystem;
+import frc.robot.subsystems.ClawV2Subsystem;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -25,6 +29,8 @@ public class RobotContainer {
 
   //subsystems
   private final DriveTrain m_driveTrain = new DriveTrain();
+  //private final ClawV2Subsystem m_clawV2Subsystem = new ClawV2Subsystem();
+  private final ArmSubystem m_armSubsystem = new ArmSubystem();
   //commands
   //auto command
   private final AutoCommandBalance m_autonomousBalanceCommand = new AutoCommandBalance(m_driveTrain); 
@@ -47,6 +53,9 @@ public class RobotContainer {
   public RobotContainer() {
     //default commands
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
+    m_armSubsystem.setDefaultCommand(new ManualArmCommand(m_armSubsystem, operator));
+    //m_clawV2Subsystem.setDefaultCommand(new ManualClawV2RunCommand(m_clawV2Subsystem, operator));
+    //m_armSubsystem.setDefaultCommand(new ManualArmCommand(m_armSubsystem, operator));
     
     //choosable auto
     m_chooser.setDefaultOption("no balance", m_autonomousNoBalanceCommand);
